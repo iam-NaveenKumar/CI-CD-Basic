@@ -3,7 +3,7 @@ import express from "express";
 const app = express();
 
 app.get("/", (req, res) => {
-    res.send("<h1>Hello from my CI/CD server!</h1>");
+    res.send("<h1>Hello from my CI/CD server! updated</h1>");
 });
 
 if (process.env.NODE_ENV !== "test") {
