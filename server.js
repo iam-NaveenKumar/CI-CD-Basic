@@ -1,16 +1,15 @@
-import express from 'express';
+import express from "express";
 
 const app = express();
 
-const port = 1234;
-
-app.get('/', (req, res) => {
-  res.send('<h1>Hello! This is home page</h1>');
+app.get("/", (req, res) => {
+    res.send("<h1>Hello from my CI/CD server!</h1>");
 });
 
-app.get('/about', (req, res) => {
-  res.send('<h1>Hello! This is about page</h1>');
-});
-
+if (process.env.NODE_ENV !== "test") {
+    app.listen(3000, () => {
+        console.log("Server running on http://localhost:3000");
+    });
+}
 
 export default app;

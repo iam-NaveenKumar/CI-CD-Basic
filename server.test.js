@@ -7,8 +7,3 @@ test("Homepage should return 200", async () => {
     expect(response.statusCode).toBe(200);
 });
 
-test("About page should return 200", async () => {
-    const response = await request(app).get("/about");
-
-    expect(response.statusCode).toBe(200);
-});

@@ -1,4 +1,4 @@
-name: CI
+name: CI/CD
 
 on:
   push:
@@ -6,7 +6,7 @@ on:
       - main
 
 jobs:
-  test:
+  deploy:
     runs-on: self-hosted
 
     steps:
@@ -21,3 +21,24 @@ jobs:
 
       - name: Run tests
         run: npm test
+
+      - name: Deploy application
+        shell: powershell
+        run: |
+          robocopy $env:GITHUB_WORKSPACE "$HOME\OneDrive\Desktop\ci-cd-deployment" /E /XD .git node_modules
+          if ($LASTEXITCODE -le 7) {
+              exit 0
+          } else {
+              exit $LASTEXITCODE
+          }
+
+      - name: Install production dependencies
+        shell: powershell
+        run: |
+          cd "$HOME\OneDrive\Desktop\ci-cd-deployment"
+          npm ci --omit=dev
+
+      - name: Restart application
+        shell: powershell
+        run: |
+          pm2 restart ci-cd-learning
