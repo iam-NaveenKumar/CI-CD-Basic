@@ -10,8 +10,11 @@ jobs:
     runs-on: self-hosted
 
     steps:
-      - name: Say hello
-        run: echo "Hello from GitHub Actions!"
+      - name: Checkout code
+        uses: actions/checkout@v4
 
       - name: Show Node version
         run: node --version
+
+      - name: Show project files
+        run: dir
